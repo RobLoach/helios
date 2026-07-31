@@ -62,9 +62,16 @@ function createWindow() {
   win.webContents.on('enter-html-full-screen', () => win.setFullScreen(true));
   win.webContents.on('leave-html-full-screen', () => win.setFullScreen(false));
 
+  // Luna negotiates stream resolution from the canvas size at session start:
+  // a small window means a sub-1080p stream, so open big.
+  win.maximize();
+
   win.loadURL(LUNA_URL);
   win.on('closed', () => { win = null; });
 }
+
+// Native Wayland when available (falls back to X11 elsewhere).
+app.commandLine.appendSwitch('ozone-platform-hint', 'auto');
 
 // Streaming needs these regardless of window focus.
 app.commandLine.appendSwitch('disable-features', 'UserAgentClientHint');
