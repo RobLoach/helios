@@ -47,7 +47,7 @@ modules:
       - type: git
         url: https://github.com/Greugreu/helios.git
         tag: v0.1.0
-        commit: c35d2e54fb6dee534d07fa7681ebc7c4bf9199ce
+        commit: ba85402f07ca2f84b943bb54a6dc226eee526275
       - generated-sources.json
       - type: script
         dest-filename: helios.sh

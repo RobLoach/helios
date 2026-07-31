@@ -46,7 +46,7 @@ The two files in this directory are the complete submission payload:
 
 ## Notes
 
-- The manifest pins tag `v0.1.0` at commit `c35d2e54…`. Any code fix before
+- The manifest pins tag `v0.1.0` at commit `ba85402f…`. Any code fix before
   acceptance needs a new tag and a manifest bump.
 - Local test build of exactly what Flathub will build:
 
