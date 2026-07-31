@@ -1,0 +1,56 @@
+app-id: io.github.greugreu.Helios
+runtime: org.freedesktop.Platform
+runtime-version: '25.08'
+sdk: org.freedesktop.Sdk
+base: org.electronjs.Electron2.BaseApp
+base-version: '25.08'
+sdk-extensions:
+  - org.freedesktop.Sdk.Extension.node24
+command: helios
+separate-locales: false
+
+finish-args:
+  - --require-version=1.16.0
+  - --share=ipc
+  - --share=network
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --socket=pulseaudio
+  - --device=dri
+  # Gamepads (hidraw for DualSense adaptive triggers passthrough)
+  - --device=input
+  - --allow=bluetooth
+  - --env=ELECTRON_OZONE_PLATFORM_HINT=auto
+
+modules:
+  - name: helios
+    buildsystem: simple
+    build-options:
+      append-path: /usr/lib/sdk/node24/bin
+      env:
+        XDG_CACHE_HOME: /run/build/helios/flatpak-node/cache
+        npm_config_cache: /run/build/helios/flatpak-node/npm-cache
+        npm_config_offline: 'true'
+    build-commands:
+      # Offline install from the generated sources (flatpak-node-generator)
+      - npm install --offline --no-audit --no-fund
+      - mkdir -p /app/helios
+      - cp -r src package.json node_modules /app/helios/
+      - install -Dm755 helios.sh /app/bin/helios
+      - install -Dm644 build/io.github.greugreu.Helios.desktop /app/share/applications/io.github.greugreu.Helios.desktop
+      - install -Dm644 build/io.github.greugreu.Helios.metainfo.xml /app/share/metainfo/io.github.greugreu.Helios.metainfo.xml
+      - for s in 16 32 48 64 128 256 512; do
+          install -Dm644 build/icons/${s}x${s}.png /app/share/icons/hicolor/${s}x${s}/apps/io.github.greugreu.Helios.png;
+        done
+      - install -Dm644 build/icons/helios.svg /app/share/icons/hicolor/scalable/apps/io.github.greugreu.Helios.svg
+    sources:
+      - type: git
+        url: https://github.com/Greugreu/helios.git
+        tag: v0.1.0
+        commit: e8c1e52a9c6be709b3b744debdfdedc866c54163
+      - generated-sources.json
+      - type: script
+        dest-filename: helios.sh
+        commands:
+          - export TMPDIR="$XDG_RUNTIME_DIR/app/$FLATPAK_ID"
+          - exec zypak-wrapper /app/helios/node_modules/electron/dist/electron /app/helios "$@"

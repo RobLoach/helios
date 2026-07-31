@@ -29,6 +29,12 @@
     </ul>
   </description>
   <launchable type="desktop-id">io.github.greugreu.Helios.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/Greugreu/helios/main/screenshots/luna-home.png</image>
+      <caption>The Luna catalog in Helios</caption>
+    </screenshot>
+  </screenshots>
   <content_rating type="oars-1.1"/>
   <url type="homepage">https://github.com/Greugreu/helios</url>
   <url type="bugtracker">https://github.com/Greugreu/helios/issues</url>
