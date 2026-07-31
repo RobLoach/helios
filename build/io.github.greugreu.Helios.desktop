@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Helios
+GenericName=Cloud Gaming Client
+Comment=Unofficial Amazon Luna cloud gaming client
+Exec=helios
+Icon=io.github.greugreu.Helios
+Terminal=false
+Type=Application
+Categories=Game;
+Keywords=luna;cloud;gaming;streaming;
+StartupWMClass=Helios

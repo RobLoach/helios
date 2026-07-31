@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>io.github.greugreu.Helios</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Helios</name>
+  <summary>Play Amazon Luna on Linux</summary>
+  <developer id="io.github.greugreu">
+    <name>Greugreu</name>
+  </developer>
+  <description>
+    <p>
+      Helios is an unofficial client for the Amazon Luna cloud gaming service.
+      It provides a dedicated app window for Luna game streaming on Linux with
+      controller support, fullscreen play, and a persistent login session.
+    </p>
+    <p>
+      Helios is not affiliated with, endorsed by, or sponsored by Amazon.
+      Amazon Luna is a trademark of Amazon.com, Inc. An active Amazon account
+      is required, and game availability depends on your Luna subscription and
+      region.
+    </p>
+    <p>Features:</p>
+    <ul>
+      <li>Dedicated window for Luna, no browser setup required</li>
+      <li>Gamepad support (DualSense, Xbox, and other standard controllers)</li>
+      <li>Fullscreen streaming with pointer and keyboard capture</li>
+      <li>Remembers your Amazon login between sessions</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">io.github.greugreu.Helios.desktop</launchable>
+  <content_rating type="oars-1.1"/>
+  <url type="homepage">https://github.com/Greugreu/helios</url>
+  <url type="bugtracker">https://github.com/Greugreu/helios/issues</url>
+  <categories>
+    <category>Game</category>
+  </categories>
+  <supports>
+    <control>gamepad</control>
+    <control>pointing</control>
+    <control>keyboard</control>
+  </supports>
+  <requires>
+    <internet>always</internet>
+  </requires>
+  <branding>
+    <color type="primary" scheme_preference="light">#ffd76e</color>
+    <color type="primary" scheme_preference="dark">#141824</color>
+  </branding>
+  <releases>
+    <release version="0.1.0" date="2026-07-31">
+      <description>
+        <p>Initial release: Luna streaming window with user agent handling, gamepad passthrough, and fullscreen support.</p>
+      </description>
+    </release>
+  </releases>
+</component>

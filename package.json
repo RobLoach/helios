@@ -1,0 +1,18 @@
+{
+  "name": "helios",
+  "version": "0.1.0",
+  "description": "Unofficial Amazon Luna cloud gaming client for Linux",
+  "main": "src/main.js",
+  "license": "GPL-3.0-or-later",
+  "author": "Greugreu",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Greugreu/helios.git"
+  },
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^38.2.0"
+  }
+}
