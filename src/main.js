@@ -1,6 +1,6 @@
 'use strict';
 
-const { app, BrowserWindow, shell, session, globalShortcut, Menu } = require('electron');
+const { app, BrowserWindow, shell, session, Menu } = require('electron');
 const path = require('path');
 
 const LUNA_URL = 'https://luna.amazon.com/';
@@ -58,6 +58,15 @@ function createWindow() {
     }
   });
 
+  // Window-local F11 (a globalShortcut would trigger the portal permission
+  // dialog under Flatpak).
+  win.webContents.on('before-input-event', (event, input) => {
+    if (input.type === 'keyDown' && input.key === 'F11') {
+      event.preventDefault();
+      win.setFullScreen(!win.isFullScreen());
+    }
+  });
+
   // Games request pointer lock / fullscreen themselves; let the page drive it.
   win.webContents.on('enter-html-full-screen', () => win.setFullScreen(true));
   win.webContents.on('leave-html-full-screen', () => win.setFullScreen(false));
@@ -91,15 +100,9 @@ app.whenReady().then(() => {
   Menu.setApplicationMenu(null);
   createWindow();
 
-  globalShortcut.register('F11', () => {
-    if (win) win.setFullScreen(!win.isFullScreen());
-  });
-
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 });
-
-app.on('will-quit', () => globalShortcut.unregisterAll());
 
 app.on('window-all-closed', () => app.quit());

@@ -43,11 +43,16 @@ modules:
         done
       - install -Dm644 build/icons/helios.svg /app/share/icons/hicolor/scalable/apps/io.github.greugreu.Helios.svg
     sources:
+      # For the Flathub submission this dir source becomes a git tag source.
       - type: dir
         path: ..
-      # For the Flathub submission this becomes a git/archive source plus
-      # generated-sources.json from flatpak-node-generator:
-      #   flatpak-node-generator npm package-lock.json -o generated-sources.json
+        skip:
+          - node_modules
+          - build-dir
+          - .flatpak-builder
+      # Offline npm + electron artifacts, regenerated on dependency changes:
+      #   flatpak-node-generator npm package-lock.json -o flatpak/generated-sources.json
+      - generated-sources.json
       - type: script
         dest-filename: helios.sh
         commands:
