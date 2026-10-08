@@ -10,7 +10,8 @@
     "url": "https://github.com/Greugreu/helios.git"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "update-gamecontrollerdb": "curl -fsSL https://raw.githubusercontent.com/mdqinc/SDL_GameControllerDB/master/gamecontrollerdb.txt -o src/gamecontrollerdb.txt && curl -fsSL https://raw.githubusercontent.com/mdqinc/SDL_GameControllerDB/master/LICENSE -o src/gamecontrollerdb.LICENSE"
   },
   "devDependencies": {
     "electron": "^38.2.0"

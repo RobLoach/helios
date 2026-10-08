@@ -14,8 +14,7 @@ configuration required.
 ## Features
 
 - Dedicated window for Luna — launches straight into the service
-- Gamepad passthrough via the standard Gamepad API (DualSense, Xbox, and
-  other controllers supported by the kernel)
+- Gamepad support over USB or Bluetooth
 - Fullscreen streaming with pointer lock and keyboard capture
 - Persistent session — log in once
 - External links open in your default browser, not inside the app
@@ -37,7 +36,7 @@ A Flatpak manifest lives in `flatpak/`. Flathub submission is planned; until
 then you can build locally:
 
 ```sh
-flatpak install flathub org.electronjs.Electron2.BaseApp//24.08
+flatpak install flathub org.electronjs.Electron2.BaseApp//25.08 org.freedesktop.Sdk.Extension.node24//25.08
 flatpak-builder --user --install --force-clean build-dir flatpak/io.github.greugreu.Helios.yml
 ```
 
@@ -49,6 +48,15 @@ window and presents a mainstream Chrome user agent so the service serves the
 stream. The Chrome version in the UA tracks the Chromium that Electron
 actually ships, so it stays current without manual bumps.
 
+Chromium only gives the standard Gamepad API layout to controllers in its
+built-in list; others arrive unmapped and Luna ignores them. Helios looks
+those up by vendor and product ID in a vendored copy of SDL_GameControllerDB
+and remaps them to the standard layout before Luna sees them. Refresh the database
+with `npm run update-gamecontrollerdb`.
+
 ## License
 
 GPL-3.0-or-later. See [LICENSE](LICENSE).
+
+`src/gamecontrollerdb.txt` is from SDL_GameControllerDB, under the zlib
+license; see [src/gamecontrollerdb.LICENSE](src/gamecontrollerdb.LICENSE).

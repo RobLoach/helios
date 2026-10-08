@@ -1,7 +1,8 @@
 'use strict';
 
-const { app, BrowserWindow, shell, session, Menu } = require('electron');
+const { app, BrowserWindow, shell, session, Menu, ipcMain } = require('electron');
 const path = require('path');
+const { mappingForGamepad } = require('./gamecontrollerdb');
 
 const LUNA_URL = 'https://luna.amazon.com/';
 
@@ -40,6 +41,7 @@ function createWindow() {
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: true,
+      preload: path.join(__dirname, 'preload.js'),
     },
   });
 
@@ -95,6 +97,11 @@ app.whenReady().then(() => {
   const GRANTED = new Set(['fullscreen', 'pointerLock', 'keyboardLock', 'gamepad', 'clipboard-sanitized-write']);
   session.defaultSession.setPermissionRequestHandler((wc, permission, cb) => {
     cb(GRANTED.has(permission));
+  });
+
+  // The preload asks once per controller Chromium can't map itself.
+  ipcMain.on('gamepad-mapping', (event, gamepad) => {
+    event.returnValue = mappingForGamepad(gamepad);
   });
 
   Menu.setApplicationMenu(null);
